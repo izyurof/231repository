@@ -8,7 +8,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
@@ -37,11 +39,17 @@ public class JavaConfig {
     public LocalContainerEntityManagerFactoryBean getEntityManager() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(getDataSource());
+        factoryBean.setPersistenceUnitName(getClass().getSimpleName());
+        factoryBean.setPackagesToScan("hibernate.model");
 
+        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+        factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.show_sql", "true");
         jpaProperties.setProperty("hibernate.format_sql", "true");
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create");
         factoryBean.setJpaProperties(jpaProperties);
+
         return factoryBean;
     }
 
