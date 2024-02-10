@@ -47,7 +47,7 @@ public class JavaConfig {
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.show_sql", "true");
         jpaProperties.setProperty("hibernate.format_sql", "true");
-        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create");
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "update");
         factoryBean.setJpaProperties(jpaProperties);
 
         return factoryBean;
