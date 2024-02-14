@@ -1,7 +1,5 @@
 package hibernate.model;
 
-import org.springframework.cglib.core.GeneratorStrategy;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +22,7 @@ public class User {
     @Column(name = "age")
     private Byte age;
     @Column(name = "education")
-    private String Education;
+    private String education;
 
     public User() {
     }
@@ -33,7 +31,7 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
-        Education = education;
+        this.education = education;
     }
 
     public Long getId() {
@@ -69,11 +67,11 @@ public class User {
     }
 
     public String getEducation() {
-        return Education;
+        return education;
     }
 
     public void setEducation(String education) {
-        Education = education;
+        this.education = education;
     }
 
     @Override
@@ -81,12 +79,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(age, user.age) && Objects.equals(Education, user.Education);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(age, user.age) && Objects.equals(education, user.education);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, age, Education);
+        return Objects.hash(id, name, lastName, age, education);
     }
 
     @Override
@@ -96,7 +94,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                ", Education='" + Education + '\'' +
+                ", Education='" + education + '\'' +
                 '}';
     }
 }

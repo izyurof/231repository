@@ -1,6 +1,5 @@
 package hibernate.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +21,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class JavaConfig {
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
+
+    public JavaConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
@@ -40,7 +42,7 @@ public class JavaConfig {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(getDataSource());
         factoryBean.setPersistenceUnitName(getClass().getSimpleName());
-        factoryBean.setPackagesToScan("hibernate.model");
+        factoryBean.setPackagesToScan("hibernate");
 
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
@@ -55,6 +57,7 @@ public class JavaConfig {
 
     @Bean
     public JpaTransactionManager transactionManager() {
+        System.out.println("манагер стартовал");
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getEntityManager().getObject());
         return transactionManager;
