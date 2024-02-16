@@ -14,7 +14,6 @@ public class UserServiceImpl implements UserService {
     private final UserDao USER_DAO;
 
     public UserServiceImpl(UserDao userDao) {
-        System.out.println("UserServiceImpl Bean стартовал");
         this.USER_DAO = userDao;
     }
 
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User findUserById(Long id) {
         return USER_DAO.findUserById(id);
     }
@@ -43,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return USER_DAO.getAllUsers();
     }

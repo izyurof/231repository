@@ -57,7 +57,6 @@ public class JavaConfig {
 
     @Bean
     public JpaTransactionManager transactionManager() {
-        System.out.println("манагер стартовал");
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getEntityManager().getObject());
         return transactionManager;

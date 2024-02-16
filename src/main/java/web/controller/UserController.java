@@ -15,14 +15,14 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final UserService USER_SERVICE;
+    private final UserService userService;
     public UserController(UserService USER_SERVICE) {
-        this.USER_SERVICE = USER_SERVICE;
+        this.userService = USER_SERVICE;
     }
 
     @GetMapping("/users")
     public String showAllUsers(Model model) {
-        List<User> allUsers = USER_SERVICE.getAllUsers();
+        List<User> allUsers = userService.getAllUsers();
         model.addAttribute("allUsers", allUsers);
         return "show";
     }
@@ -35,37 +35,34 @@ public class UserController {
 
     @PostMapping("/users")
     public String addUser(@ModelAttribute(value = "user") User user) {
-        USER_SERVICE.saveUser(user);
+        userService.saveUser(user);
 
         return "redirect:/users";
     }
 
     @GetMapping("/users/updateuser")
     public String updateUser(@RequestParam(value = "id") Long id, Model model) {
-        User user = USER_SERVICE.findUserById(id);
+        User user = userService.findUserById(id);
         model.addAttribute("userupdate", user);
         return "updateuser";
     }
 
     @PostMapping("/users/updateuser")
     public String updateUser(@ModelAttribute(value = "userupdate") User user) {
-        USER_SERVICE.updateUser(user);
+        userService.updateUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/users/deleteuser")
     public String deleteUser(@RequestParam(value = "id") Long id, Model model) {
-        User user = USER_SERVICE.findUserById(id);
+        User user = userService.findUserById(id);
         model.addAttribute("deleteuser", user);
         return "deleteuser";
     }
 
     @PostMapping("/users/deleteuser")
     public String deleteUser(@ModelAttribute(value = "deleteuser") User user) {
-        System.out.println(user.getId());
-        USER_SERVICE.deleteUser(user);
+        userService.deleteUser(user);
         return "redirect:/users";
     }
-
-
 }

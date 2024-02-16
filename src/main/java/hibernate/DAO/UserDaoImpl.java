@@ -15,7 +15,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void saveUser(User user) {
-        System.out.println("Метод save выполняется");
         entityManager.persist(user);
     }
 
